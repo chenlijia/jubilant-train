@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.overcloud.stat.dao.IGameInfoStatDao">
+
+    <insert id="saveDownload">
+        insert into ${param2} (packageName, channel, version, pageName, mac, IP, downloadTime, dlResult, reason, country, province, city) 
+        values
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{item.packageName},#{item.channel},#{item.version},#{item.pageName},#{item.mac},inet_aton(#{item.ip}),#{item.downloadTime},
+            #{item.dlResult},#{item.reason},#{item.country},#{item.province},#{item.city})
+        </foreach>
+    </insert>
+
+    <insert id="saveInstall">
+        insert into ${param2} (packageName, channel, version, pageName, mac, IP, installTime, insResult, reason, country, province, city) 
+        values
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{item.packageName},#{item.channel},#{item.version},#{item.pageName},#{item.mac},inet_aton(#{item.ip}),#{item.installTime},
+            #{item.insResult},#{item.reason},#{item.country},#{item.province},#{item.city})
+        </foreach>
+    </insert>
+    
+    <insert id="saveStartup">
+        insert into ${param2} (packageName, channel, version, pageName, mac, IP, ms, createDateTime, country, province, city) 
+        values
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{item.packageName},#{item.channel},#{item.version},#{item.pageName},#{item.mac},inet_aton(#{item.ip}),#{item.ms},#{item.createDateTime},
+            #{item.country},#{item.province},#{item.city})
+        </foreach>
+    </insert>
+    
+    <insert id="saveUninstall">
+        insert into ${param2} (packageName, channel, version, mac, IP, uninstallTime, country, province, city) 
+        values
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{item.packageName},#{item.channel},#{item.version},#{item.mac},inet_aton(#{item.ip}),#{item.uninstallTime},
+            #{item.country},#{item.province},#{item.city})
+        </foreach>
+    </insert>
+    
+    <insert id="savePageAccess">
+        insert into ${param2} (packageName, channel, version, pageName, mac, IP, enterTime, leaveTime, ms, createDateTime, category, 
+        country, province, city) 
+        values
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{item.packageName},#{item.channel},#{item.version},#{item.pageName},#{item.mac},inet_aton(#{item.ip}),#{item.enterTime},
+            #{item.leaveTime},#{item.ms},#{item.createDateTime},#{item.category},#{item.country},#{item.province},#{item.city})
+        </foreach>
+    </insert>
+    
+    <insert id="saveDetailIntent">
+        insert into ${param2} (packageName, channel, version, mac, IP, fromPage, referPage, createDateTime, category, country, 
+        province, city) 
+        values
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{item.packageName},#{item.channel},#{item.version},#{item.mac},inet_aton(#{item.ip}),#{item.fromPage},
+            #{item.referPage},#{item.createDateTime},#{item.category},#{item.country},#{item.province},#{item.city})
+        </foreach>
+    </insert>
+</mapper> 

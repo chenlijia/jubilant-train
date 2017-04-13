@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.overcloud.stat.dao.IGameDlCountDao">
+
+    <select id="queryList" resultType="GameDlCount">
+        select t.id, t.packageName, t.downloadCount, t.modifyDateTime
+        from oc_game_dlcount t where 1=1
+    </select>
+
+    <insert id="add" parameterType="String">
+        insert into oc_game_dlcount(packageName, downloadCount) 
+        values(#{0}, 1)
+    </insert>
+    
+    <update id="edit" parameterType="String">
+        update oc_game_dlcount set downloadCount=downloadCount+1 
+        where packageName=#{0}
+    </update>
+</mapper> 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.overcloud.stat.dao.ICreateTableDao">
+
+    <update id="createStatGameDownload" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${GameDownloadTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+          `packageName` varchar(50) NOT NULL COMMENT '包名',
+          `channel` varchar(20) DEFAULT NULL COMMENT '渠道',
+          `version` varchar(20) DEFAULT NULL COMMENT 'app store的版本号',
+          `pageName` varchar(50) DEFAULT NULL COMMENT '来源页面',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `downloadTime` datetime DEFAULT NULL COMMENT '下载时间',
+          `dlResult` smallint(5) unsigned DEFAULT '0' COMMENT '下载结果, 1 成功  0 失败',
+          `reason` varchar(100) DEFAULT NULL COMMENT '下载失败时记录原因',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游戏下载记录';
+        ]]>
+    </update>
+
+    <update id="createStatGameInstall" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${GameInstallTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+          `packageName` varchar(50) NOT NULL COMMENT '包名',
+          `channel` varchar(20) DEFAULT NULL COMMENT 'app的渠道来源',
+          `version` varchar(20) DEFAULT NULL COMMENT '版本号',
+          `pageName` varchar(50) DEFAULT NULL COMMENT '来源页面',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `installTime` datetime DEFAULT NULL COMMENT '安装时间',
+          `insResult` smallint(5) unsigned DEFAULT '0' COMMENT '安装结果, 1 成功  0 失败',
+          `reason` varchar(100) DEFAULT NULL COMMENT '安装失败时记录原因',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游戏安装记录';
+        ]]>
+    </update>
+
+    <update id="createStatGameStartup" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${GameStartupTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+          `packageName` varchar(50) NOT NULL COMMENT '包名',
+          `pageName` varchar(50) NOT NULL COMMENT '页面名称',
+          `channel` varchar(20) DEFAULT NULL COMMENT 'app的渠道来源',
+          `version` varchar(20) DEFAULT NULL COMMENT 'app store的版本号',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `ms` bigint(20) DEFAULT NULL COMMENT '毫秒数',
+          `createDateTime` datetime DEFAULT NULL COMMENT '创建时间',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游戏启动统计';
+        ]]>
+    </update>
+    
+    <update id="createStatGameUninstall" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${GameUninstallTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+          `packageName` varchar(50) NOT NULL COMMENT '包名',
+          `channel` varchar(20) DEFAULT NULL COMMENT '渠道',
+          `version` varchar(20) DEFAULT NULL COMMENT '版本号',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `uninstallTime` datetime DEFAULT NULL COMMENT '卸载时间',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游戏卸载记录';
+        ]]>
+    </update>
+    
+    <update id="createStatBoxSwitch" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${BoxSwitchTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+          `channel` varchar(20) DEFAULT NULL COMMENT '渠道',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `time` datetime DEFAULT NULL COMMENT '时间戳',
+          `timeType` varchar(20) DEFAULT NULL COMMENT '时间类型：0 开机  1 唤醒  2 休眠 ',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='盒子开关机';
+        ]]>
+    </update>
+    
+    <update id="createStatGameDetailIntent" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${GameDetailIntentTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+          `packageName` varchar(50) DEFAULT NULL COMMENT '包名',
+          `channel` varchar(20) DEFAULT NULL COMMENT 'app的渠道来源',
+          `version` varchar(20) DEFAULT NULL COMMENT 'app store的版本号',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `fromPage` varchar(50) DEFAULT NULL COMMENT '起始页面',
+          `referPage` varchar(50) DEFAULT NULL COMMENT '跳转目标页面',
+          `createDateTime` datetime DEFAULT NULL COMMENT '创建时间',
+          `category` varchar(20) DEFAULT NULL COMMENT '页面分类',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游戏详情页面跳转统计';
+        ]]>
+    </update>
+    
+    <update id="createStatGamePageAccess" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${GamePageAccessTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+          `pageName` varchar(50) DEFAULT NULL COMMENT '页面名称',
+          `packageName` varchar(50) DEFAULT NULL COMMENT '包名',
+          `channel` varchar(20) DEFAULT NULL COMMENT 'app的渠道来源',
+          `version` varchar(20) DEFAULT NULL COMMENT 'app store的版本号',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子mac',
+          `IP` int(11) unsigned DEFAULT NULL COMMENT '客户端IP',
+          `enterTime` datetime DEFAULT NULL COMMENT '进入页面时间',
+          `leaveTime` datetime DEFAULT NULL COMMENT '离开页面时间',
+          `ms` bigint(20) DEFAULT NULL COMMENT '毫秒数',
+          `createDateTime` datetime DEFAULT NULL COMMENT '创建时间',
+          `category` varchar(20) DEFAULT NULL COMMENT '页面分类',
+          `country` varchar(20) DEFAULT NULL COMMENT '国家',
+          `province` varchar(20) DEFAULT NULL COMMENT '省',
+          `city` varchar(20) DEFAULT NULL COMMENT '市',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游戏页面访问统计';
+        ]]>
+    </update>
+    
+    <update id="createStatApkUpdate" parameterType="map" statementType="STATEMENT"><![CDATA[
+        CREATE TABLE ${ApkUpdateTable} (
+          `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+          `channel` varchar(20) DEFAULT NULL,
+          `packageName` varchar(50) DEFAULT NULL COMMENT '包名',
+          `versionCode` varchar(20) DEFAULT NULL COMMENT '版本号',
+          `mac` varchar(50) DEFAULT NULL COMMENT '盒子MAC地址',
+          `createDateTime` datetime DEFAULT NULL,
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='记录各个版本的更新';
+        ]]>
+    </update>
+</mapper> 
